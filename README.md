@@ -45,7 +45,7 @@ Below is a detailed description of each configuration parameter available in `ma
 | `optimizer` | `str` (e.g., `"sgd"`, `"momentum"`, `"adam"`) | Specifies the optimization algorithm. Options: `"momentum"`, `"sgd"`, `"adam"`, `"rmsprop"`, `"adagrad"`, `"adamw"`, `"amsgrad"`. |
 | `sampling` | `str` (e.g., `"normal"`, `"independent"`) | Specifies the sampling strategy for weighting vector $v$. Options: `"normal"`, `"replacement"`, `"independent"`, `"tau-nice"`. |
 | `use_wandb` | `flag` (Usage: `use_wandb`) | If present, enables logging to Weights & Biases. Logs include ES metrics (LHS, RHS), gradient norms, and accuracy. |
-| `model` | `str` (Fixed: `"ResNet18"`) | The model architecture is fixed to ResNet18 within the script. |
-| `epochs` | `int` (Fixed: `200`) | The total number of training epochs is fixed to 200. |
-| `device` | `str` (Fixed: `"cuda:0"`) | Defaults to GPU 0 if CUDA is available. |
-| `dataset` | `str` (Fixed: `"CIFAR-100"`) | The dataset is automatically downloaded to `./data`. |
+| `model` | `str` (`"ResNet18"`) | The model architecture is fixed to ResNet18 within the script. |
+| `epochs` | `int` (`200`) | The total number of training epochs is fixed to 200. |
+| `device` | `str` (`"cuda:0"`) | Defaults to GPU 0 if CUDA is available. |
+| `dataset` | `str` (`"CIFAR-100"`) | The dataset is automatically downloaded to `./data`. |
