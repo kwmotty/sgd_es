@@ -40,9 +40,12 @@ The following is an example configuration for training ResNet18 using the SGD op
 Below is a detailed description of each configuration parameter available in `main.py`:
 
 | Parameter | Type & Example | Description |
-| :- | :- | :- |
-| `optimizer` | `str` (`"sgd"`, `"momentum"`, `"adam"`,<br>`"rmsprop"`, `"adagrad"`, `"adamw"`, `"amsgrad"`) | Specifies the optimizer to use during training. Default is `"sgd"`. |
-| `sampling` | `str` (`"normal"`, `"replacement"`,<br>`"independent"`, `"tau-nice"`) | Specifies the sampling strategy. This controls the weighting vector $v$ applied to the loss function. Default is `"normal"`. |
-| `batch_size` | `int` (`128`) | Training batch size. Also used to calculate sampling probabilities $p$ and $q$. Default is `128`. |
-| `use_wandb` | `flag` (no value required) | If present, enables logging to Weights & Biases (wandb). Logs include ES metrics (LHS, RHS), gradient norms, and training accuracy. |
-```
+| :--- | :--- | :--- |
+| `--batch_size` | `int` (e.g., `128`) | Specifies the training batch size. Default is `128`. Also used to calculate sampling probabilities ($p$ and $q$) for Expected Smoothness. |
+| `--optimizer` | `str` (e.g., `"sgd"`, `"momentum"`, `"adam"`) | Specifies the optimization algorithm. Options: `"momentum"`, `"sgd"`, `"adam"`, `"rmsprop"`, `"adagrad"`, `"adamw"`, `"amsgrad"`. |
+| `--sampling` | `str` (e.g., `"normal"`, `"independent"`) | Specifies the sampling strategy for weighting vector $v$. Options: `"normal"`, `"replacement"`, `"independent"`, `"tau-nice"`. |
+| `--use_wandb` | `flag` (Usage: `--use_wandb`) | If present, enables logging to Weights & Biases. Logs include ES metrics (LHS, RHS), gradient norms, and accuracy. |
+| `model` | `str` (Fixed: `"ResNet18"`) | The model architecture is fixed to ResNet18 within the script. |
+| `epochs` | `int` (Fixed: `200`) | The total number of training epochs is fixed to 200. |
+| `device` | `str` (Fixed: `"cuda:0"`) | Defaults to GPU 0 if CUDA is available. |
+| `dataset` | `str` (Fixed: `"CIFAR-100"`) | The dataset is automatically downloaded to `./data`. |
