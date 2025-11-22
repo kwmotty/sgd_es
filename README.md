@@ -41,10 +41,10 @@ Below is a detailed description of each configuration parameter available in `ma
 
 | Parameter | Type & Example | Description |
 | :--- | :--- | :--- |
-| `--batch_size` | `int` (e.g., `128`) | Specifies the training batch size. Default is `128`. Also used to calculate sampling probabilities ($p$ and $q$) for Expected Smoothness. |
-| `--optimizer` | `str` (e.g., `"sgd"`, `"momentum"`, `"adam"`) | Specifies the optimization algorithm. Options: `"momentum"`, `"sgd"`, `"adam"`, `"rmsprop"`, `"adagrad"`, `"adamw"`, `"amsgrad"`. |
-| `--sampling` | `str` (e.g., `"normal"`, `"independent"`) | Specifies the sampling strategy for weighting vector $v$. Options: `"normal"`, `"replacement"`, `"independent"`, `"tau-nice"`. |
-| `--use_wandb` | `flag` (Usage: `--use_wandb`) | If present, enables logging to Weights & Biases. Logs include ES metrics (LHS, RHS), gradient norms, and accuracy. |
+| `batch_size` | `int` (e.g., `128`) | Specifies the training batch size. Default is `128`. Also used to calculate sampling probabilities ($p$ and $q$) for Expected Smoothness. |
+| `optimizer` | `str` (e.g., `"sgd"`, `"momentum"`, `"adam"`) | Specifies the optimization algorithm. Options: `"momentum"`, `"sgd"`, `"adam"`, `"rmsprop"`, `"adagrad"`, `"adamw"`, `"amsgrad"`. |
+| `sampling` | `str` (e.g., `"normal"`, `"independent"`) | Specifies the sampling strategy for weighting vector $v$. Options: `"normal"`, `"replacement"`, `"independent"`, `"tau-nice"`. |
+| `use_wandb` | `flag` (Usage: `use_wandb`) | If present, enables logging to Weights & Biases. Logs include ES metrics (LHS, RHS), gradient norms, and accuracy. |
 | `model` | `str` (Fixed: `"ResNet18"`) | The model architecture is fixed to ResNet18 within the script. |
 | `epochs` | `int` (Fixed: `200`) | The total number of training epochs is fixed to 200. |
 | `device` | `str` (Fixed: `"cuda:0"`) | Defaults to GPU 0 if CUDA is available. |
