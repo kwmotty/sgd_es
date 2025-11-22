@@ -41,8 +41,8 @@ Below is a detailed description of each configuration parameter available in `ma
 
 | Parameter | Type & Example | Description |
 | :- | :- | :- |
-| `--optimizer` | `str` (`"sgd"`, `"momentum"`, `"adam"`,<br>`"rmsprop"`, `"adagrad"`, `"adamw"`, `"amsgrad"`) | Specifies the optimizer to use during training. Default is `"sgd"`. |
-| `--sampling` | `str` (`"normal"`, `"replacement"`,<br>`"independent"`, `"tau-nice"`) | Specifies the sampling strategy. This controls the weighting vector $v$ applied to the loss function. Default is `"normal"`. |
-| `--batch_size` | `int` (`128`) | Training batch size. Also used to calculate sampling probabilities $p$ and $q$. Default is `128`. |
-| `--use_wandb` | `flag` (no value required) | If present, enables logging to Weights & Biases (wandb). Logs include ES metrics (LHS, RHS), gradient norms, and training accuracy. |
+| `optimizer` | `str` (`"sgd"`, `"momentum"`, `"adam"`,<br>`"rmsprop"`, `"adagrad"`, `"adamw"`, `"amsgrad"`) | Specifies the optimizer to use during training. Default is `"sgd"`. |
+| `sampling` | `str` (`"normal"`, `"replacement"`,<br>`"independent"`, `"tau-nice"`) | Specifies the sampling strategy. This controls the weighting vector $v$ applied to the loss function. Default is `"normal"`. |
+| `batch_size` | `int` (`128`) | Training batch size. Also used to calculate sampling probabilities $p$ and $q$. Default is `128`. |
+| `use_wandb` | `flag` (no value required) | If present, enables logging to Weights & Biases (wandb). Logs include ES metrics (LHS, RHS), gradient norms, and training accuracy. |
 ```
