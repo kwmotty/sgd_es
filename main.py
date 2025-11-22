@@ -89,7 +89,7 @@ def get_minibatch_grad_norm(model):
     grad_vec = torch.cat(grad_list)
     return torch.norm(grad_vec, p=2).item()
 
-# ----- 勾配ベクトルを取る -----
+# ----- Get gradient vector -----
 def get_grad_vector(model):
     grads = []
     for p in model.parameters():
@@ -99,19 +99,19 @@ def get_grad_vector(model):
         return torch.tensor([0.0], device=device)
     return torch.cat(grads)
 
-# ----- スナップショット用バッファ -----
+# ----- Buffer for snapshots -----
 snapshots = []
 best_train_loss = float("inf")
 
 def compare_gradients(epoch):
     global best_train_loss
     
-    # ---- フルバッチ勾配 ----
+    # ---- Full-batch gradient ----
     g_full_list = get_full_grad_list(model, trainloader, optimizer, args.batch_size, device)
     g_full = torch.tensor(g_full_list, device=device)
     grad_full_norm2 = torch.norm(g_full).item()**2
     
-    # ---- ミニバッチ勾配との差 (LHS) ----
+    # ---- Difference from mini-batch gradient (LHS) ----
     batch_norm_diffs = []
     num_samples = 5
     for _ in range(num_samples):
@@ -132,12 +132,12 @@ def compare_gradients(epoch):
         best_train_loss = current_loss
     f_gap = current_loss - best_train_loss
     
-    # ---- スナップショット保存 ----
+    # ---- Save snapshot ----
     snapshots.append((f_gap, grad_full_norm2, lhs))
-    if len(snapshots) > 50:  # バッファサイズ制限
+    if len(snapshots) > 50:  # Limit buffer size
         snapshots.pop(0)
     
-    # ---- NNLS で A,B,C 推定 ----
+    # ---- Estimate A, B, C using NNLS ----
     z_hat = {'A': None, 'B': None, 'C': None}
     rhs, residual = None, None
     if len(snapshots) >= 5:
@@ -152,7 +152,7 @@ def compare_gradients(epoch):
         rhs = float(W[-1] @ z)
         residual = float(b[-1] - rhs)
     
-    # ---- WandB ログ ----
+    # ---- WandB logging ----
     if args.use_wandb:
         log_data = {
             'epoch': epoch,
@@ -179,7 +179,7 @@ def train():
     train_loss = 0
     correct = 0
     total = 0
-    grad_norms = []  # ★ 各ミニバッチの勾配ノルムを記録
+    grad_norms = []  # ★ Record gradient norm for each mini-batch
 
     for batch_idx, (inputs, targets) in enumerate(trainloader):
         inputs, targets = inputs.to(device), targets.to(device)
@@ -203,7 +203,7 @@ def train():
 
         weighted_loss.backward()
 
-        # ★ ミニバッチ勾配ノルムを記録
+        # ★ Record mini-batch gradient norm
         grad_norms.append(get_minibatch_grad_norm(model))
 
         optimizer.step()
@@ -215,7 +215,7 @@ def train():
 
     training_acc = 100. * correct / total
     norm_result = get_full_grad_list(model, trainloader, optimizer, args.batch_size, device)
-    avg_grad_norm = float(np.mean(grad_norms))  # ★ epoch 平均の勾配ノルム
+    avg_grad_norm = float(np.mean(grad_norms))  # ★ Average gradient norm for the epoch
 
     if args.use_wandb:
         wandb.log({
@@ -223,7 +223,7 @@ def train():
             'training_acc': training_acc,
             'training_loss': train_loss / (batch_idx + 1),
             'norm_result': norm_result,
-            'avg_grad_norm': avg_grad_norm  # ★ 追加ログ
+            'avg_grad_norm': avg_grad_norm  # ★ Additional logging
         })
 
 # ==========================
